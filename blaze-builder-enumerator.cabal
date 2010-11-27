@@ -1,6 +1,6 @@
 Name          : blaze-builder-enumerator
 Version       : 0.1
-Synopsis      : A combinator for using blaze-builder with enumerator.
+Synopsis      : Use blaze-builder Builder's in an Iteratee.
 Description   :
 
   This package simplifies the process of using blaze-builder with the
