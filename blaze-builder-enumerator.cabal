@@ -17,7 +17,7 @@ Cabal-version : >=1.6
 Category      : Data, Text, Enumerator
 Stability     : Experimental
 Bug-reports   : mailto:me@thomas-sutton.id.au
-Homepage      : http://github.com/thsutton/blaze-builder-enumerator
+Homepage      : https://github.com/thsutton/blaze-builder-enumerator
 
 Source-repository head
   Type: git
