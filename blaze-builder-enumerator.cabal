@@ -21,7 +21,7 @@ Homepage      : http://github.com/thsutton/blaze-builder-enumerator
 
 Source-repository head
   Type: git
-  Location: http://github.com/thsutton/blaze-builder-enumerator
+  Location: https://github.com/thsutton/blaze-builder-enumerator.git
 
 Library
   GHC-options: -Wall -fno-warn-unused-do-bind
