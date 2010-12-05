@@ -1,27 +1,33 @@
 Name          : blaze-builder-enumerator
-Version       : 0.1
-Synopsis      : Use blaze-builder Builder's in an Iteratee.
+Version       : 0.2.0.0
+Synopsis      : Enumeratees for the incremental conversion of builders to
+                bytestrings.
 Description   :
 
-  This package simplifies the process of using blaze-builder with the
-  enumerator package by converting a function that constructs a Builder into
-  an Iteratee.
+  This package integrates the builders from the blaze-builder package with
+  the enumerator package. It provides infrastructure and enumeratees for
+  incrementally executing builders and pass the filled chunks to a bytestring
+  iteratee.
 
-Author        : Thomas Sutton <me@thomas-sutton.id.au>
-Maintainer    : me@thomas-sutton.id.au
-Copyright     : Copyright (c) Thomas Sutton 2010
+Author        : Simon Meier <iridcode@gmail.com>
+Maintainer    : Simon Meier <iridcode@gmail.com>
+Copyright     : Copyright (c) Simon Meier 2010
+                
+                original package by Thomas Sutton <me@thomas-sutton.id.au>
+                original enumeratee code by Michael Snoyman <michael@snoyman.com>
+
 License       : BSD3
 License-file  : LICENSE
 Build-type    : Simple
 Cabal-version : >=1.6
 Category      : Data, Text, Enumerator
 Stability     : Experimental
-Bug-reports   : mailto:me@thomas-sutton.id.au
-Homepage      : https://github.com/thsutton/blaze-builder-enumerator
+Bug-reports   : https://github.com/thsutton/blaze-builder-enumerator
+Homepage      : https://github.com/meiersi/blaze-builder-enumerator 
 
 Source-repository head
   Type: git
-  Location: https://github.com/thsutton/blaze-builder-enumerator.git
+  Location: https://github.com/meiersi/blaze-builder-enumerator.git
 
 Library
   GHC-options: -Wall -fno-warn-unused-do-bind
@@ -30,5 +36,6 @@ Library
     , blaze-builder >= 0.2 && < 0.3
     , bytestring >= 0.9 && < 0.10
     , enumerator >= 0.4 && < 0.5
+    , transformers >= 0.2 && < 0.3
   Exposed-modules:
     Blaze.ByteString.Builder.Enumerator
