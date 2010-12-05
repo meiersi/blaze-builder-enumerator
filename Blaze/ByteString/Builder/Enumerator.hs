@@ -25,7 +25,6 @@ import qualified Data.ByteString                   as S
 import qualified Data.ByteString.Internal          as S
 import qualified Data.ByteString.Lazy              as L
 import           Data.Enumerator      hiding (map)
-import           Data.Enumerator.IO 
 import           Data.Monoid
 
 import Control.Monad.IO.Class
@@ -54,7 +53,7 @@ sliceSize (Buffer _ p0 op _) = op `minusPtr` p0
 
 -- | The size of the whole byte array underlying the buffer.
 bufferSize :: Buffer -> Int
-bufferSize (Buffer fpbuf _ op ope) = 
+bufferSize (Buffer fpbuf _ _ ope) = 
     ope `minusPtr` unsafeForeignPtrToPtr fpbuf
 
 -- | @allocBuffer size@ allocates a new buffer of size @size@.
@@ -95,7 +94,7 @@ unsafeFreezeNonEmptyBuffer buf
 updateEndOfSlice :: Buffer    -- Old buffer
                  -> Ptr Word8 -- New end of slice  
                  -> Buffer    -- Updated buffer
-updateEndOfSlice (Buffer fpbuf p0 op ope) op' = Buffer fpbuf p0 op' ope
+updateEndOfSlice (Buffer fpbuf p0 _ ope) op' = Buffer fpbuf p0 op' ope
 
 -- | Execute a build step on the given buffer.
 {-# INLINE execBuildStep #-}
@@ -214,7 +213,7 @@ builderToByteStringWith (ioBuf0, nextBuf) step0 = do
                         -- construction here ensures that the reference to the
                         -- foreign pointer `fp` is lost as soon as possible.
                         ioBuf' <- liftIO $ nextBuf minSize buf'
-                        go buildStep' ioBuf' k
+                        go buildStep' ioBuf' k'
                 case unsafeFreezeNonEmptyBuffer buf' of
                     Nothing -> cont k
                     Just bs ->
