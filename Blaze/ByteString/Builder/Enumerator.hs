@@ -1,8 +1,9 @@
 ------------------------------------------------------------------------------
 -- |
 -- Module       : Blaze.ByteString.Builder.Enumerator
+-- Copyright    : (c) 2010 Simon Meier
 -- License      : BSD3
--- Copyright    : 2010 Simon Meier <iridcode@gmail.com>
+--
 -- Maintainer   : Simon Meier <iridcode@gmail.com>
 -- Stability    : Experimental
 -- Portability  : Tested on GHC only
@@ -16,7 +17,36 @@
 ------------------------------------------------------------------------------
 
 
-module Blaze.ByteString.Builder.Enumerator where
+module Blaze.ByteString.Builder.Enumerator (
+
+  -- * Buffers
+    Buffer
+
+  -- ** Status information
+  , freeSize 
+  , sliceSize 
+  , bufferSize 
+
+  -- ** Creation and modification
+  , allocBuffer 
+  , reuseBuffer 
+  , nextSlice 
+
+  -- ** Conversion to bytestings
+  , unsafeFreezeBuffer 
+  , unsafeFreezeNonEmptyBuffer 
+
+  -- * Buffer allocation strategies
+  , BufferAllocStrategy
+  , allNewBuffersStrategy 
+  , reuseBufferStrategy 
+
+  -- * Enumeratees from builders to bytestrings
+  , builderToByteString 
+  , unsafeBuilderToByteString 
+  , builderToByteStringWith 
+
+  ) where
 
 import Prelude
 import Foreign
@@ -146,7 +176,8 @@ unsafeBuilderToByteString = builderToByteStringWith . reuseBufferStrategy
 -- buffer to use and how to compute a new buffer @nextBuf minSize buf@ with at
 -- least size @minSize@ from a filled buffer @buf@. The double nesting of the
 -- @IO@ monad helps to ensure that the reference to the filled buffer @buf@ is
--- lost as soon as possible.
+-- lost as soon as possible, but the new buffer doesn't have to be allocated 
+-- too early.
 type BufferAllocStrategy = (IO Buffer, Int -> Buffer -> IO (IO Buffer))
   
 -- | The simplest buffer allocation strategy: whenever a buffer is requested,
@@ -177,6 +208,10 @@ reuseBufferStrategy buf0 =
 -- filled chunks as bytestrings to an inner iteratee.
 --
 -- INV: All bytestrings passed to the inner iteratee are non-empty.
+
+--
+-- based on the enumeratee code by Michael Snoyman <michael@snoyman.com>
+--
 builderToByteStringWith :: MonadIO m 
                         => BufferAllocStrategy
                         -> Enumeratee Builder S.ByteString m a

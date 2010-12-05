@@ -11,10 +11,9 @@ Description   :
 
 Author        : Simon Meier <iridcode@gmail.com>
 Maintainer    : Simon Meier <iridcode@gmail.com>
-Copyright     : Copyright (c) Simon Meier 2010
+Copyright     : Copyright (c) 2010 Simon Meier
                 
                 original package by Thomas Sutton <me@thomas-sutton.id.au>
-                original enumeratee code by Michael Snoyman <michael@snoyman.com>
 
 License       : BSD3
 License-file  : LICENSE
