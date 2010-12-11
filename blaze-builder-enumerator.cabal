@@ -19,7 +19,7 @@ License       : BSD3
 License-file  : LICENSE
 Build-type    : Simple
 Cabal-version : >=1.6
-Category      : Data, Text, Enumerator
+Category      : Data, Enumerator
 Stability     : Experimental
 Bug-reports   : https://github.com/thsutton/blaze-builder-enumerator
 Homepage      : https://github.com/meiersi/blaze-builder-enumerator 
