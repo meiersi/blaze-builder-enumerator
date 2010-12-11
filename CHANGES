@@ -1,0 +1,13 @@
+
+* blaze-builder-enumerator-0.2.0.0
+
+  An enumeratee that allows to incrementally execute builders and pass-on the
+  produced bytestrings to an inner iteratee.
+
+  Complete rewrite by Simon Meier <iridcode@gmail.com> merging the builder
+  enumeratee code by Michael Snoyman <michael@snoyman.com> with the new
+  buffered output support provided by blaze-builder-0.2.1.0.
+
+* blaze-builder-enumerator-0.1
+
+  Original version by Thomas Sutton <me@thomas-sutton.id.au>
