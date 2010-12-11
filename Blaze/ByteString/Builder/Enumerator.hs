@@ -113,7 +113,6 @@ builderToByteStringWith (ioBuf0, nextBuf) step0 = do
     step ioBuf k0 (Chunks xs) =
         go (unBuilder (mconcat xs) (buildStep finalStep)) ioBuf k0
       where
-        unBuilder (Builder x) = x
         finalStep !(BufRange pf _) = return $ Done pf ()
 
     go bStep ioBuf k = do
