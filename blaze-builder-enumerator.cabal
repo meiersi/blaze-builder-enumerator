@@ -21,7 +21,7 @@ Build-type    : Simple
 Cabal-version : >=1.6
 Category      : Data, Enumerator
 Stability     : Experimental
-Bug-reports   : https://github.com/thsutton/blaze-builder-enumerator
+Bug-reports   : https://github.com/meiersi/blaze-builder-enumerator
 Homepage      : https://github.com/meiersi/blaze-builder-enumerator 
 
 Source-repository head
