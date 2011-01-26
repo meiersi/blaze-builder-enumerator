@@ -1,3 +1,7 @@
+* blaze-builder-enumerator-0.2.0.1
+
+  Removed left-over flag -fno-warn-unused-binds in .cabal file to allow
+  blaze-builder-enumerator to be built with GHC 6.10.
 
 * blaze-builder-enumerator-0.2.0.0
 

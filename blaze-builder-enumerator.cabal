@@ -1,5 +1,5 @@
 Name          : blaze-builder-enumerator
-Version       : 0.2.0.0
+Version       : 0.2.0.1
 Synopsis      : Enumeratees for the incremental conversion of builders to
                 bytestrings.
 Description   :
@@ -11,7 +11,7 @@ Description   :
 
 Author        : Simon Meier <iridcode@gmail.com>
 Maintainer    : Simon Meier <iridcode@gmail.com>
-Copyright     : Copyright (c) 2010 Simon Meier
+Copyright     : Copyright (c) 2010, 2011 Simon Meier
                 
                 original package by Thomas Sutton <me@thomas-sutton.id.au>
 
@@ -29,12 +29,12 @@ Source-repository head
   Location: https://github.com/meiersi/blaze-builder-enumerator.git
 
 Library
-  GHC-options: -Wall -fno-warn-unused-do-bind
+  GHC-options: -Wall
   Build-depends:
-      base >= 4 && < 5
-    , blaze-builder >= 0.2.1 && < 0.3
-    , bytestring >= 0.9 && < 0.10
-    , enumerator >= 0.4.3.1 && < 0.5
-    , transformers >= 0.2 && < 0.3
+      base          >= 4       && < 5
+    , blaze-builder >= 0.2.1   && < 0.3
+    , bytestring    >= 0.9     && < 0.10
+    , enumerator    >= 0.4.3.1 && < 0.5
+    , transformers  >= 0.2     && < 0.3
   Exposed-modules:
     Blaze.ByteString.Builder.Enumerator
