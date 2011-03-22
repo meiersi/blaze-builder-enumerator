@@ -1,5 +1,5 @@
 Name          : blaze-builder-enumerator
-Version       : 0.2.0.1
+Version       : 0.2.0.2
 Synopsis      : Enumeratees for the incremental conversion of builders to
                 bytestrings.
 Description   :
@@ -32,7 +32,7 @@ Library
   GHC-options: -Wall
   Build-depends:
       base          >= 4       && < 5
-    , blaze-builder >= 0.2.1   && < 0.3
+    , blaze-builder >= 0.2.1.4 && < 0.4
     , bytestring    >= 0.9     && < 0.10
     , enumerator    >= 0.4.3.1 && < 0.5
     , transformers  >= 0.2     && < 0.3
