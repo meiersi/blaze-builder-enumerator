@@ -1,5 +1,5 @@
 Name          : blaze-builder-enumerator
-Version       : 0.2.0.2
+Version       : 0.2.0.3
 Synopsis      : Enumeratees for the incremental conversion of builders to
                 bytestrings.
 Description   :
