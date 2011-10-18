@@ -24,9 +24,13 @@ Stability     : Experimental
 Bug-reports   : https://github.com/meiersi/blaze-builder-enumerator
 Homepage      : https://github.com/meiersi/blaze-builder-enumerator 
 
+Extra-source-files:
+  CHANGES
+
 Source-repository head
   Type: git
   Location: https://github.com/meiersi/blaze-builder-enumerator.git
+
 
 Library
   GHC-options: -Wall
