@@ -1,18 +1,21 @@
+* 0.2.0.4
 
-* blaze-builder-enumerator-0.2.0.3
+  Widened dependency on transformers to allow for transformers-0.3
+
+* 0.2.0.3
 
   Changed licence to BSD3
 
-* blaze-builder-enumerator-0.2.0.2
+* 0.2.0.2
  
   Widened blaze-builder dependencies.
 
-* blaze-builder-enumerator-0.2.0.1
+* 0.2.0.1
 
   Removed left-over flag -fno-warn-unused-binds in .cabal file to allow
   blaze-builder-enumerator to be built with GHC 6.10.
 
-* blaze-builder-enumerator-0.2.0.0
+* 0.2.0.0
 
   An enumeratee that allows to incrementally execute builders and pass-on the
   produced bytestrings to an inner iteratee.
@@ -21,6 +24,6 @@
   enumeratee code by Michael Snoyman <michael@snoyman.com> with the new
   buffered output support provided by blaze-builder-0.2.1.0.
 
-* blaze-builder-enumerator-0.1
+* 0.1
 
   Original version by Thomas Sutton <me@thomas-sutton.id.au>
