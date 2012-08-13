@@ -1,3 +1,7 @@
+* 0.2.0.5
+
+  Widened dependency on bytestring to allow for bytestring-0.10
+
 * 0.2.0.4
 
   Widened dependency on transformers to allow for transformers-0.3
@@ -7,7 +11,7 @@
   Changed licence to BSD3
 
 * 0.2.0.2
- 
+
   Widened blaze-builder dependencies.
 
 * 0.2.0.1

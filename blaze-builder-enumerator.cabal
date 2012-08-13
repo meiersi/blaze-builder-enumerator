@@ -1,5 +1,5 @@
 Name          : blaze-builder-enumerator
-Version       : 0.2.0.4
+Version       : 0.2.0.5
 Synopsis      : Enumeratees for the incremental conversion of builders to
                 bytestrings.
 Description   :
@@ -12,7 +12,7 @@ Description   :
 Author        : Simon Meier <iridcode@gmail.com>
 Maintainer    : Simon Meier <iridcode@gmail.com>
 Copyright     : Copyright (c) 2010, 2011 Simon Meier
-                
+
                 original package by Thomas Sutton <me@thomas-sutton.id.au>
 
 License       : BSD3
@@ -22,7 +22,7 @@ Cabal-version : >=1.6
 Category      : Data, Enumerator
 Stability     : Experimental
 Bug-reports   : https://github.com/meiersi/blaze-builder-enumerator
-Homepage      : https://github.com/meiersi/blaze-builder-enumerator 
+Homepage      : https://github.com/meiersi/blaze-builder-enumerator
 
 Extra-source-files:
   CHANGES
