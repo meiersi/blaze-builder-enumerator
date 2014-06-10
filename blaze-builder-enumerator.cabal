@@ -1,5 +1,5 @@
 Name          : blaze-builder-enumerator
-Version       : 0.2.0.5
+Version       : 0.2.0.6
 Synopsis      : Enumeratees for the incremental conversion of builders to
                 bytestrings.
 Description   :
@@ -39,6 +39,6 @@ Library
     , blaze-builder >= 0.2.1.4 && < 0.4
     , bytestring    >= 0.9     && < 0.11
     , enumerator    >= 0.4.3.1 && < 0.5
-    , transformers  >= 0.2     && < 0.4
+    , transformers  >= 0.2     && < 0.5
   Exposed-modules:
     Blaze.ByteString.Builder.Enumerator
