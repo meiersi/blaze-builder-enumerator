@@ -1,4 +1,4 @@
-{-# LANGUAGE BangPatterns #-}
+{-# LANGUAGE BangPatterns, CPP #-}
 ------------------------------------------------------------------------------
 -- |
 -- Module       : Blaze.ByteString.Builder.Enumerator
@@ -55,9 +55,20 @@ import           Data.Monoid
 
 import Control.Monad.IO.Class
 
+#if MIN_VERSION_blaze_builder(0,4,0)
+
+import Blaze.ByteString.Builder
+import Data.ByteString.Builder.Extra
+import Data.Streaming.ByteString.Builder.Buffer
+import Foreign.Ptr
+
+#else /* !MIN_VERSION_blaze_builder(0,4,0) */
+
 import Blaze.ByteString.Builder.Internal
 import Blaze.ByteString.Builder.Internal.Types
 import Blaze.ByteString.Builder.Internal.Buffer
+
+#endif /* !MIN_VERSION_blaze_builder(0,4,0) */
 
 ------------------------------------------------------------------------------
 -- Enumeratees for converting builders incrementally to bytestrings
@@ -70,7 +81,11 @@ import Blaze.ByteString.Builder.Internal.Buffer
 -- bytestrings.
 builderToByteString :: MonadIO m => Enumeratee Builder S.ByteString m a
 builderToByteString = 
+#if MIN_VERSION_blaze_builder(0,4,0)
+  builderToByteStringWith (allNewBuffersStrategy defaultChunkSize)
+#else /* !MIN_VERSION_blaze_builder(0,4,0) */
   builderToByteStringWith (allNewBuffersStrategy defaultBufferSize)
+#endif /* !MIN_VERSION_blaze_builder(0,4,0) */
 
 -- | Incrementally execute builders on the given buffer and pass on the filled
 -- chunks as bytestrings. Note that, if the given buffer is too small for the
@@ -96,6 +111,60 @@ unsafeBuilderToByteString = builderToByteStringWith . reuseBufferStrategy
 builderToByteStringWith :: MonadIO m 
                         => BufferAllocStrategy
                         -> Enumeratee Builder S.ByteString m a
+
+#if MIN_VERSION_blaze_builder(0,4,0)
+
+builderToByteStringWith (ioBuf0, nextBuf) step0 = do
+    loop ioBuf0 step0
+  where
+    loop ioBuf = checkDone $ continue . step ioBuf
+
+    step :: MonadIO m => IO (Buffer)
+         -> (Stream S.ByteString -> Iteratee S.ByteString m b)
+         -> Stream Builder
+         -> Iteratee Builder m (Step S.ByteString m b)
+    step ioBuf k EOF = do
+        buf <- liftIO ioBuf
+        case unsafeFreezeNonEmptyBuffer buf of
+            Nothing -> yield (Continue k) EOF
+            Just bs -> k (Chunks [bs]) >>== flip yield EOF
+    step ioBuf k0 (Chunks xs) =
+        go (runBuilder (mconcat xs)) ioBuf k0
+
+    go bWriter ioBuf k = do
+        !buf@(Buffer _ _ op ope) <- liftIO ioBuf
+        (bytes, next) <- liftIO (bWriter op (ope `minusPtr` op))
+        let op' = op `plusPtr` bytes
+        case next of
+            Done -> continue $ step (return (updateEndOfSlice buf op')) k
+            More minSize bWriter' -> do
+                let buf' = updateEndOfSlice buf op'
+                    {-# INLINE cont #-}
+                    cont k' = do
+                        -- sequencing the computation of the next buffer
+                        -- construction here ensures that the reference to the
+                        -- foreign pointer `fp` is lost as soon as possible.
+                        ioBuf' <- liftIO $ nextBuf minSize buf'
+                        go bWriter' ioBuf' k'
+                case unsafeFreezeNonEmptyBuffer buf' of
+                    Nothing -> cont k
+                    Just bs ->
+                        k (Chunks [bs]) >>== \step' ->
+                            case step' of
+                                Continue k' -> cont k'
+                                _ -> return step' -- FIXME: Check that we don't loose any input here!
+            Chunk bs bWriter' -> do
+                let buf' = updateEndOfSlice buf op'
+                    bsk  = maybe id (:) $ unsafeFreezeNonEmptyBuffer buf'
+                k (Chunks (bsk [bs])) >>== \step' ->
+                    case step' of
+                        Continue k' -> do
+                            ioBuf' <- liftIO $ nextBuf 1 buf'
+                            go bWriter' ioBuf' k'
+                        _ -> return step' -- FIXME: Check that we don't loose any input here!
+
+#else /* !MIN_VERSION_blaze_builder(0,4,0) */
+
 builderToByteStringWith (ioBuf0, nextBuf) step0 = do
     loop ioBuf0 step0
   where
@@ -146,6 +215,7 @@ builderToByteStringWith (ioBuf0, nextBuf) step0 = do
                             go bStep' ioBuf' k'
                         _ -> return step' -- FIXME: Check that we don't loose any input here!
 
+#endif /* !MIN_VERSION_blaze_builder(0,4,0) */
 
 
 {- Old testing code:
