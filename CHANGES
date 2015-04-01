@@ -1,3 +1,13 @@
+* 0.2.1.0
+
+  Fixed compiliation on GHC <7.8 by adding a flag to control whether the new
+  blaze-builder is pulled in (with bytestring-builder, which is also necessary
+  on older GHC).
+
+* 0.2.0.7
+
+  Allowed use of blaze-builder 0.4.
+
 * 0.2.0.5
 
   Widened dependency on bytestring to allow for bytestring-0.10
